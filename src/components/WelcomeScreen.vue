@@ -2,7 +2,7 @@
   <div class="welcome-screen screen-container" ref="screenRef">
     <div class="welcome-content safe-top safe-bottom">
       <div class="welcome-text-wrapper" ref="textWrapperRef">
-        <p class="welcome-emoji" ref="emojiRef">✨</p>
+        <p class="welcome-emoji" ref="emojiRef">{{ data.welcomeEmoji || '🍃' }}</p>
         <h1 class="welcome-text glow-text" ref="welcomeTextRef">
           <span ref="typingRef" />
           <span class="cursor" :class="{ hidden: typingDone }">|</span>
@@ -26,7 +26,7 @@ import { ref, onMounted, computed } from 'vue'
 import gsap from 'gsap'
 import { useAppStore } from 'src/stores/app'
 import { useSound } from 'src/composables/useAudio'
-import { fireConfetti } from 'src/utils/effects'
+import { fireConfetti, fireChakraBurst } from 'src/utils/effects'
 
 const emit = defineEmits(['open'])
 
@@ -64,6 +64,7 @@ function handleOpen() {
       if (store.data.sounds?.enabled) {
         play(store.data.sounds.letterOpen, 0.5)
       }
+      fireChakraBurst()
       fireConfetti()
       store.openLetter()
       emit('open')
@@ -164,7 +165,7 @@ onMounted(async () => {
 
 .cursor {
   animation: blink 0.8s step-end infinite;
-  color: #e8a0bf;
+  color: #ff6b2b;
 }
 
 .cursor.hidden {

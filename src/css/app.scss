@@ -57,16 +57,16 @@ body {
   padding: 16px 40px;
   border: none;
   border-radius: 50px;
-  background: linear-gradient(135deg, #e8a0bf 0%, #c9a0dc 100%);
-  color: #0a0a0f;
+  background: linear-gradient(135deg, #ff6b2b 0%, #4a90d9 50%, #e8a0bf 100%);
+  color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow:
-    0 4px 20px rgba(232, 160, 191, 0.4),
-    0 0 40px rgba(232, 160, 191, 0.15);
+    0 4px 20px rgba(255, 107, 43, 0.4),
+    0 0 40px rgba(74, 144, 217, 0.15);
 
   &:active {
     transform: scale(0.96);
@@ -100,7 +100,7 @@ body {
 
 // ── Typography ──────────────────────────────────────────────────
 .text-gradient {
-  background: linear-gradient(135deg, #e8a0bf, #c9a0dc, #ffb3c6);
+  background: linear-gradient(135deg, #ff6b2b, #4a90d9, #e8a0bf);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -34,6 +34,12 @@ export const useAppStore = defineStore('app', () => {
     imagesPreloaded.value = value
   }
 
+  function resetExperience() {
+    currentScreen.value = 'welcome'
+    letterOpened.value = false
+    musicPlaying.value = false
+  }
+
   return {
     isLoading,
     currentScreen,
@@ -46,6 +52,7 @@ export const useAppStore = defineStore('app', () => {
     openLetter,
     toggleMusic,
     setMusicPlaying,
-    setImagesPreloaded
+    setImagesPreloaded,
+    resetExperience
   }
 })

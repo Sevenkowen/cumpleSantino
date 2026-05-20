@@ -1,110 +1,196 @@
 /**
  * ═══════════════════════════════════════════════════════════════
- *  CONTENIDO EDITABLE — Modificá este archivo para personalizar
- *  la carta de cumpleaños sin tocar el código de los componentes.
+ *  CARTA DE SANTINO — Contenido editable
+ *  Modificá este archivo para personalizar la experiencia.
  * ═══════════════════════════════════════════════════════════════
  */
 
 export default {
-  // URL del sitio deployado (para generar el QR)
   siteUrl: 'https://cumple-santino-gilt.vercel.app',
 
   // ── Pantalla de bienvenida ──────────────────────────────────
   welcomeText: 'Santino, tengo algo especial para vos ❤️',
-  openButtonText: 'Abrir carta',
+  welcomeEmoji: '🍃',
+  openButtonText: 'Abrir mi sorpresa',
 
-  // ── Carta ─────────────────────────────────────────────────────
+  // ── Carta principal ───────────────────────────────────────────
   title: 'Feliz Cumpleaños',
   recipientName: 'Santino',
-  subtitle: 'Hoy es tu día, y quería recordarte lo especial que sos.',
+  subtitle: 'Un niño alegre, soñador y lleno de pasión',
 
-  message: `Cada momento a tu lado es un regalo que atesoro.
-Gracias por tu risa, tu luz y por ser exactamente quien sos.
-
-Que este nuevo año te traiga todo lo que soñás,
-y que sepas que siempre voy a estar acá, celebrándote.`,
-
-  signature: 'Con todo mi amor 💕',
-
-  // ── Frases destacadas ─────────────────────────────────────────
-  quotes: [
+  // ── Historia interactiva (scroll) ─────────────────────────────
+  story: [
     {
-      text: 'El amor no se mira, se siente.',
-      author: '— Para vos, siempre'
+      id: 'welcome',
+      emoji: '👋',
+      title: 'Hola Santino...',
+      subtitle: 'Hoy es tu día y preparamos algo único',
+      paragraphs: [
+        'Sos un niño increíble: alegre, soñador, fanático de Naruto, de la música y del fútbol.',
+        'Esta carta es un viaje por todo lo que te hace especial. Deslizá hacia abajo y descubrí tu sorpresa...'
+      ],
+      theme: 'default'
     },
     {
-      text: 'Contigo, cada día es una aventura.',
-      author: '— Nuestra historia'
+      id: 'ninja',
+      emoji: '🎌',
+      title: 'Nivel Ninja',
+      subtitle: 'Tu camino de superación',
+      paragraphs: [
+        'Como un verdadero shinobi, cada día entrenás para ser mejor. Caés, te levantás y seguís adelante con una sonrisa.',
+        'Tu valentía, tu curiosidad y tu corazón noble te convierten en un ninja de verdad — uno que nunca se rinde.'
+      ],
+      quote: {
+        text: 'La verdadera fuerza no está en nunca caer, sino en levantarse cada vez con más ganas.',
+        author: '— Para vos, futuro Hokage'
+      },
+      theme: 'naruto'
     },
     {
-      text: 'Eres mi lugar favorito en el mundo.',
-      author: '— Sin importar dónde estemos'
+      id: 'music',
+      emoji: '🎤',
+      title: 'Estrella de la Música',
+      subtitle: 'Tus artistas favoritos',
+      paragraphs: [
+        'La música vive en vos. Cuando suena Pablo Londra o Duki, tus ojos brillan y el mundo se detiene.',
+        'Soñás en grande, como las estrellas que admirás. Y nosotros soñamos con vos, siempre.'
+      ],
+      theme: 'music'
+    },
+    {
+      id: 'river',
+      emoji: '⚽',
+      title: 'Campeón',
+      subtitle: 'Pasión Millonaria',
+      paragraphs: [
+        'River corre por tus venas. Sos hincha de corazón, con la pasión de un verdadero campeón.',
+        'En la cancha y en la vida, sabés que el esfuerzo, el trabajo en equipo y nunca bajar los brazos es lo que te lleva lejos.'
+      ],
+      theme: 'river'
+    },
+    {
+      id: 'family',
+      emoji: '💌',
+      title: 'Mensaje de tu Familia',
+      subtitle: 'Con todo nuestro amor',
+      paragraphs: [
+        'Santino, hoy celebramos a vos: tu risa, tus sueños, tu energía y ese corazón enorme que tenés.',
+        'Gracias por llenar nuestras vidas de alegría. Que este nuevo año te traiga todo lo que soñás.',
+        'Naruto, la música, River... y sobre todo, la familia. Siempre vamos a estar acá, alentándote en cada paso.'
+      ],
+      signature: 'Con todo nuestro amor, tu familia ❤️',
+      theme: 'family'
     }
   ],
 
-  // ── Fechas importantes ────────────────────────────────────────
-  importantDates: [
+  // ── Frases inspiradas en Naruto (originales) ──────────────────
+  narutoQuotes: [
     {
-      label: 'Nuestro primer encuentro',
-      date: '15 de Marzo, 2023',
-      emoji: '🌹'
+      text: 'Los lazos que unen a los amigos son el verdadero poder.',
+      author: '— Espíritu ninja'
     },
     {
-      label: 'Tu cumpleaños',
-      date: '20 de Mayo',
-      emoji: '🎂'
+      text: 'Cada caída es una lección, cada paso te acerca a tu sueño.',
+      author: '— Camino del shinobi'
     },
     {
-      label: 'Nuestra primera aventura',
-      date: 'Verano 2023',
-      emoji: '✈️'
+      text: 'Nunca es tarde para ser quien quieras ser.',
+      author: '— Para Santino'
     }
   ],
+
+  // ── Artistas favoritos ────────────────────────────────────────
+  artists: [
+    {
+      name: 'Pablo Londra',
+      emoji: '🎤',
+      color: '#a29bfe',
+      gradient: 'linear-gradient(135deg, #6c5ce7, #a29bfe)',
+      description: 'Tus canciones favoritas, tus momentos de felicidad',
+      vibe: 'Melodías que te hacen bailar y soñar'
+    },
+    {
+      name: 'Duki',
+      emoji: '🎵',
+      color: '#00cec9',
+      gradient: 'linear-gradient(135deg, #00b894, #00cec9)',
+      description: 'El flow que te enciende y te hace sentir invencible',
+      vibe: 'Ritmo, energía y actitud de campeón'
+    }
+  ],
+
+  // ── Canción especial (elegida por los padres) ─────────────────
+  featuredSong: {
+    enabled: false,
+    src: '/audio/cancion-especial.mp3',
+    title: 'Canción elegida para vos',
+    artist: 'Con amor de mamá y papá'
+  },
+
+  // ── River Plate ───────────────────────────────────────────────
+  river: {
+    title: 'Pasión Millonaria',
+    tagline: 'El más grande, siempre en tu corazón',
+    emoji: '⚽'
+  },
+
+  // ── Pantalla final ────────────────────────────────────────────
+  finalStats: [
+    { emoji: '🏆', name: 'Santino', stat: 'Nivel Ninja: Máximo' },
+    { emoji: '⚽', name: 'Hincha de River', stat: 'Eterno' },
+    { emoji: '🎤', name: 'Fan de la música', stat: 'Legendario' },
+    { emoji: '❤️', name: 'Querido por su familia', stat: 'Infinito' }
+  ],
+
+  replayButtonText: 'Volver a leer mi sorpresa',
 
   // ── Galería de fotos ────────────────────────────────────────────
-  // Reemplazá las URLs con tus propias imágenes en /public/images/
   photos: [
     {
       src: '/images/photo-1.svg',
-      alt: 'Momento especial 1',
-      caption: 'Un recuerdo que guardo en el corazón'
+      alt: 'Santino momento especial',
+      caption: 'Nuestro pequeño ninja'
     },
     {
       src: '/images/photo-2.svg',
-      alt: 'Momento especial 2',
+      alt: 'Santino sonriendo',
       caption: 'Tu sonrisa ilumina todo'
     },
     {
       src: '/images/photo-3.svg',
-      alt: 'Momento especial 3',
+      alt: 'Santino y la familia',
       caption: 'Juntos, siempre'
     },
     {
       src: '/images/photo-4.svg',
-      alt: 'Momento especial 4',
-      caption: 'Aventuras que nunca olvidaré'
+      alt: 'Santino campeón',
+      caption: 'Pasión millonaria'
     }
   ],
 
-  // ── Música de fondo ─────────────────────────────────────────────
+  // ── Música de fondo ───────────────────────────────────────────
   music: {
     enabled: false,
     src: '/audio/background.mp3',
-    title: 'Nuestra canción',
-    artist: 'Para vos'
+    title: 'Canción especial',
+    artist: 'Para Santino'
   },
 
-  // ── Efectos de sonido ───────────────────────────────────────────
+  // ── Efectos de sonido ─────────────────────────────────────────
   sounds: {
     enabled: false,
     buttonTap: '/audio/tap.mp3',
     letterOpen: '/audio/open.mp3'
   },
 
-  // ── Configuración visual ────────────────────────────────────────
+  // ── Tema visual ───────────────────────────────────────────────
   theme: {
     accentColor: '#e8a0bf',
     glowColor: 'rgba(232, 160, 191, 0.4)',
-    particleColor: '#e8a0bf'
+    narutoOrange: '#ff6b2b',
+    narutoBlue: '#4a90d9',
+    riverRed: '#ed1c24',
+    riverWhite: '#ffffff',
+    particleColors: ['#ff6b2b', '#4a90d9', '#e8a0bf', '#ffd700', '#ed1c24']
   }
 }
