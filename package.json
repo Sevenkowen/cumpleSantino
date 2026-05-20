@@ -1,0 +1,32 @@
+{
+  "name": "cumple-santino",
+  "version": "1.0.0",
+  "description": "Carta de cumpleaños interactiva premium — mobile-first",
+  "productName": "Carta de Cumpleaños",
+  "author": "Santino",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "preview": "quasar serve dist/spa --history"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.16.15",
+    "canvas-confetti": "^1.9.3",
+    "gsap": "^3.12.7",
+    "pinia": "^2.3.1",
+    "qrcode": "^1.5.4",
+    "quasar": "^2.17.7",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@quasar/app-vite": "^2.1.0",
+    "autoprefixer": "^10.4.20",
+    "sass": "^1.83.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
