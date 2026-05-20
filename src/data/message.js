@@ -10,7 +10,7 @@ export default {
   siteUrl: 'https://cumple-santino-gilt.vercel.app',
 
   // ── Pantalla de bienvenida ──────────────────────────────────
-  welcomeText: 'Tengo algo especial para vos ❤️',
+  welcomeText: 'Santino, tengo algo especial para vos ❤️',
   openButtonText: 'Abrir carta',
 
   // ── Carta ─────────────────────────────────────────────────────
