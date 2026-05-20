@@ -7,7 +7,7 @@
 
 export default {
   // URL del sitio deployado (para generar el QR)
-  siteUrl: 'https://mi-carta.vercel.app',
+  siteUrl: 'https://cumple-santino-gilt.vercel.app',
 
   // ── Pantalla de bienvenida ──────────────────────────────────
   welcomeText: 'Tengo algo especial para vos ❤️',
