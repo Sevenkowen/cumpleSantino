@@ -1,22 +1,22 @@
 <template>
   <div class="welcome-screen screen-container" ref="screenRef">
     <div class="welcome-content safe-top safe-bottom">
-      <div class="welcome-text-wrapper" ref="textWrapperRef">
-        <p class="welcome-emoji" ref="emojiRef">{{ data.welcomeEmoji || '🍃' }}</p>
-        <h1 class="welcome-text glow-text" ref="welcomeTextRef">
-          <span ref="typingRef" />
-          <span class="cursor" :class="{ hidden: typingDone }">|</span>
-        </h1>
-      </div>
+      <OrbitingFavorites ref="orbitRef">
+        <div class="card-inner" ref="textWrapperRef">
+          <p class="welcome-emoji" ref="emojiRef">{{ data.welcomeEmoji || '🍃' }}</p>
+          <h1 class="welcome-text glow-text">
+            <span ref="typingRef" />
+            <span class="cursor" :class="{ hidden: typingDone }">|</span>
+          </h1>
+        </div>
 
-      <div class="welcome-spacer" />
-
-      <div class="welcome-action" ref="buttonRef">
-        <button class="btn-premium" @click="handleOpen">
-          {{ data.openButtonText }}
-        </button>
-        <p class="welcome-hint">Tocá para descubrir tu sorpresa</p>
-      </div>
+        <div class="welcome-action" ref="buttonRef">
+          <button class="btn-premium" @click="handleOpen">
+            {{ data.openButtonText }}
+          </button>
+          <p class="welcome-hint">Tocá para descubrir tu sorpresa</p>
+        </div>
+      </OrbitingFavorites>
     </div>
   </div>
 </template>
@@ -27,6 +27,7 @@ import gsap from 'gsap'
 import { useAppStore } from 'src/stores/app'
 import { useSound } from 'src/composables/useAudio'
 import { fireConfetti, fireChakraBurst } from 'src/utils/effects'
+import OrbitingFavorites from './OrbitingFavorites.vue'
 
 const emit = defineEmits(['open'])
 
@@ -38,7 +39,6 @@ const data = computed(() => store.data)
 const screenRef = ref(null)
 const textWrapperRef = ref(null)
 const emojiRef = ref(null)
-const welcomeTextRef = ref(null)
 const typingRef = ref(null)
 const buttonRef = ref(null)
 const typingDone = ref(false)
@@ -94,8 +94,7 @@ onMounted(async () => {
 
   tl.from(screenRef.value, {
     opacity: 0,
-    scale: 1.05,
-    duration: 1.2,
+    duration: 1,
     ease: 'power3.out'
   })
   .from(emojiRef.value, {
@@ -103,19 +102,19 @@ onMounted(async () => {
     rotation: -180,
     duration: 0.8,
     ease: 'back.out(2)'
-  }, '-=0.6')
+  }, '-=0.4')
   .from(textWrapperRef.value, {
     opacity: 0,
-    y: 30,
+    y: 20,
     duration: 0.8,
     ease: 'power3.out',
     onComplete: () => {
       typeText(data.value.welcomeText, typingRef.value, 45)
     }
-  }, '-=0.4')
+  }, '-=0.3')
   .from(buttonRef.value, {
     opacity: 0,
-    y: 40,
+    y: 30,
     duration: 0.8,
     ease: 'power3.out'
   }, '-=0.2')
@@ -130,6 +129,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .welcome-content {
@@ -141,26 +141,25 @@ onMounted(async () => {
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 32px 24px;
-  text-align: center;
+  padding: 16px 12px;
 }
 
-.welcome-text-wrapper {
-  flex-shrink: 0;
+.card-inner {
+  margin-bottom: 20px;
 }
 
 .welcome-emoji {
-  font-size: 3rem;
-  margin: 0 0 16px;
+  font-size: 2.2rem;
+  margin: 0 0 10px;
 }
 
 .welcome-text {
-  font-size: clamp(1.5rem, 5vw, 2.2rem);
-  font-weight: 300;
-  line-height: 1.4;
+  font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.45;
   margin: 0;
-  min-height: 3em;
-  letter-spacing: 0.5px;
+  min-height: 2.8em;
+  letter-spacing: 0.3px;
 }
 
 .cursor {
@@ -176,22 +175,23 @@ onMounted(async () => {
   50% { opacity: 0; }
 }
 
-.welcome-spacer {
-  flex: 1;
-  min-height: 40px;
-}
-
 .welcome-action {
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  margin-top: 4px;
 }
 
 .welcome-hint {
-  font-size: 0.8rem;
-  opacity: 0.4;
+  font-size: 0.75rem;
+  opacity: 0.45;
   margin: 0;
+}
+
+.btn-premium {
+  min-width: 180px;
+  padding: 14px 32px;
+  font-size: 1rem;
 }
 </style>

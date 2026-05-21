@@ -144,27 +144,36 @@ export default {
 
   replayButtonText: 'Volver a leer mi sorpresa',
 
+  // ── Imágenes orbitando la carta (pantalla de bienvenida) ──────
+  orbitImages: [
+    { src: '/images/favorites/naruto.png', alt: 'Naruto', angle: 0, size: 80, glow: 'glow-naruto', ring: 0 },
+    { src: '/images/favorites/duki.png', alt: 'Duki', angle: 72, size: 70, glow: 'glow-duki', ring: 0 },
+    { src: '/images/favorites/pablo-londra.png', alt: 'Pablo Londra', angle: 144, size: 76, glow: 'glow-music', ring: 0 },
+    { src: '/images/favorites/francescoli.png', alt: 'Francescoli', angle: 216, size: 78, glow: 'glow-river', ring: 0 },
+    { src: '/images/favorites/river-escudo.png', alt: 'River Plate', angle: 288, size: 56, glow: 'glow-river', ring: 0 }
+  ],
+
   // ── Galería de fotos ────────────────────────────────────────────
   photos: [
     {
-      src: '/images/photo-1.svg',
-      alt: 'Santino momento especial',
-      caption: 'Nuestro pequeño ninja'
+      src: '/images/favorites/naruto.png',
+      alt: 'Naruto - favorito de Santino',
+      caption: '¡Dattebayo! Nuestro ninja favorito'
     },
     {
-      src: '/images/photo-2.svg',
-      alt: 'Santino sonriendo',
-      caption: 'Tu sonrisa ilumina todo'
+      src: '/images/favorites/duki.png',
+      alt: 'Duki',
+      caption: 'Flow y energía de campeón'
     },
     {
-      src: '/images/photo-3.svg',
-      alt: 'Santino y la familia',
-      caption: 'Juntos, siempre'
+      src: '/images/favorites/pablo-londra.png',
+      alt: 'Pablo Londra',
+      caption: 'La música que te hace brillar'
     },
     {
-      src: '/images/photo-4.svg',
-      alt: 'Santino campeón',
-      caption: 'Pasión millonaria'
+      src: '/images/favorites/francescoli.png',
+      alt: 'Enzo Francescoli - River Plate',
+      caption: 'Pasión Millonaria eterna'
     }
   ],
 
