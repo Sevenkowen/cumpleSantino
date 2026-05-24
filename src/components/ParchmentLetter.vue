@@ -37,6 +37,8 @@
 
     <PhotoFrame />
 
+    <SantinoQuiz />
+
     <p class="scroll-hint" ref="hintRef">
       ↓ Deslizá para seguir leyendo
     </p>
@@ -51,6 +53,7 @@ import { useAppStore } from 'src/stores/app'
 import { useSequentialPenTyping } from 'src/composables/useScrollAnimations'
 import { typeWithPen } from 'src/composables/usePenWriting'
 import PhotoFrame from './PhotoFrame.vue'
+import SantinoQuiz from './SantinoQuiz.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -273,19 +276,19 @@ onMounted(async () => {
   margin: 0;
   min-height: 2em;
   text-align: left;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
-.parchment-paragraph.is-signature {
-  text-align: right;
-  font-size: 1.55rem;
-  font-weight: 600;
-  margin-top: 8px;
-  color: #1a2744;
+/* Palabras enteras — nunca se parten */
+.parchment-section :deep(.ink-word) {
+  display: inline;
+  white-space: nowrap;
 }
 
 /* Letras de tinta */
 .parchment-section :deep(.ink-letter) {
-  display: inline-block;
+  display: inline;
   opacity: 0;
   animation: ink-appear 0.18s ease forwards;
   transform: rotate(var(--ink-rot, 0deg)) translateY(var(--ink-y, 0));
@@ -294,6 +297,15 @@ onMounted(async () => {
 
 .parchment-section :deep(.ink-space) {
   min-width: 0.28em;
+  white-space: pre;
+}
+
+.parchment-paragraph.is-signature {
+  text-align: right;
+  font-size: 1.55rem;
+  font-weight: 600;
+  margin-top: 8px;
+  color: #1a2744;
 }
 
 @keyframes ink-appear {

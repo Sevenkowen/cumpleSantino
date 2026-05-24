@@ -1,5 +1,6 @@
 /**
  * Escritura letra a letra con efecto de lapicera / tinta.
+ * Las palabras nunca se parten a la mitad gracias a .ink-word
  */
 
 const PEN_HTML = `<span class="writing-pen" aria-hidden="true">
@@ -15,7 +16,6 @@ function getCharDelay(char, baseSpeed) {
   if (',;:'.includes(char)) return baseSpeed * 5 + 120
   if (char === ' ') return baseSpeed * 0.6
   if (char === '\n') return baseSpeed * 8
-  // Variación natural como mano escribiendo
   const variance = Math.random() * baseSpeed * 0.45
   return baseSpeed + variance
 }
@@ -31,7 +31,6 @@ function createInkSpan(char) {
     span.classList.add('ink-break')
   } else {
     span.textContent = char
-    // Ligera rotación aleatoria para efecto manuscrito
     const rot = (Math.random() - 0.5) * 1.8
     const y = (Math.random() - 0.5) * 1.2
     span.style.setProperty('--ink-rot', `${rot}deg`)
@@ -78,39 +77,55 @@ export function typeWithPen(element, text, options = {}) {
 
     let i = 0
     let cancelled = false
+    let currentWordSpan = null
+
+    function resetWordSpan() {
+      currentWordSpan = null
+    }
+
+    function getWordSpan(pen) {
+      if (!currentWordSpan) {
+        currentWordSpan = document.createElement('span')
+        currentWordSpan.className = 'ink-word'
+        element.insertBefore(currentWordSpan, pen)
+      }
+      return currentWordSpan
+    }
 
     const tick = () => {
       if (cancelled) return
 
       if (i < text.length) {
         const char = text[i]
-        const inkSpan = createInkSpan(char)
         const pen = getPenElement(element)
-        if (pen) {
-          element.insertBefore(inkSpan, pen)
+        const inkSpan = createInkSpan(char)
+
+        if (char === ' ' || char === '\n') {
+          if (pen) element.insertBefore(inkSpan, pen)
+          else element.appendChild(inkSpan)
+          resetWordSpan()
         } else {
-          element.appendChild(inkSpan)
+          const wordSpan = getWordSpan(pen)
+          wordSpan.appendChild(inkSpan)
         }
+
         movePenToEnd(element)
         i++
-
         setTimeout(tick, getCharDelay(char, baseSpeed))
       } else {
-        // Lapicera se levanta al terminar
         const pen = getPenElement(element)
         if (pen) {
           pen.classList.add('pen-finish')
           setTimeout(() => pen.remove(), 600)
         }
         element.classList.remove('is-typing')
+        resetWordSpan()
         onComplete?.()
         resolve()
       }
     }
 
     tick()
-
-    // Permitir cancelación externa si hiciera falta
     element._cancelPenWriting = () => { cancelled = true }
   })
 }
