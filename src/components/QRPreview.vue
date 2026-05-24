@@ -16,6 +16,10 @@
         <q-spinner-dots v-else color="primary" size="48px" />
       </div>
 
+      <p class="qr-print-note">
+        Para imprimir: negro sobre blanco, mínimo 3×3 cm, superficie plana.
+      </p>
+
       <div class="qr-url">
         <q-icon name="link" size="16px" class="q-mr-xs" />
         <span>{{ siteUrl }}</span>
@@ -64,11 +68,11 @@ const siteUrl = store.data.siteUrl
 onMounted(async () => {
   try {
     qrDataUrl.value = await QRCode.toDataURL(siteUrl, {
-      width: 280,
-      margin: 2,
+      width: 400,
+      margin: 4,
       color: {
-        dark: '#e8a0bf',
-        light: '#0a0a0f00'
+        dark: '#000000',
+        light: '#FFFFFF'
       },
       errorCorrectionLevel: 'H'
     })
@@ -128,14 +132,24 @@ function copyUrl() {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 280px;
+  min-height: 400px;
   margin-bottom: 16px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 16px;
 }
 
 .qr-image {
-  width: 280px;
-  height: 280px;
-  border-radius: 16px;
+  width: 400px;
+  height: 400px;
+  display: block;
+}
+
+.qr-print-note {
+  font-size: 0.75rem;
+  opacity: 0.55;
+  margin: 0 0 16px;
+  line-height: 1.4;
 }
 
 .qr-url {
