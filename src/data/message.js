@@ -6,7 +6,7 @@
  */
 
 export default {
-  siteUrl: 'https://cumple-santino-gilt.vercel.app',
+  siteUrl: 'https://regalo-boda-chi.vercel.app',
 
   // ── Pantalla de bienvenida ──────────────────────────────────
   welcomeText: 'Santino, tengo algo especial para vos ❤️',
