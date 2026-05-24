@@ -87,8 +87,8 @@ export const quizPool = [
     category: 'River Plate',
     emoji: '⚽',
     difficulty: 'medio',
-    question: '¿Cuál es el apodo de River Plate?',
-    options: ['El Ciclón', 'La Banda', 'El Globo', 'El León'],
+    question: '¿En qué año River ganó la Libertadores en el Santiago Bernabéu?',
+    options: ['2015', '2018', '2019', '2021'],
     correct: 1
   },
   {
@@ -105,8 +105,8 @@ export const quizPool = [
     category: 'River Plate',
     emoji: '⚽',
     difficulty: 'medio',
-    question: '¿Cuáles son los colores de River?',
-    options: ['Azul y amarillo', 'Rojo y blanco', 'Rojo y negro', 'Verde y blanco'],
+    question: '¿A qué club europeo se fue Enzo Francescoli después de su primera etapa en River?',
+    options: ['Juventus', 'AS Mónaco', 'Real Madrid', 'París Saint-Germain'],
     correct: 1
   },
   {
@@ -141,9 +141,9 @@ export const quizPool = [
     category: 'River Plate',
     emoji: '⚽',
     difficulty: 'medio',
-    question: '¿Cuál es el clásico más importante de River?',
-    options: ['Superclásico vs Boca', 'Clásico vs Racing', 'Clásico vs Independiente', 'Clásico vs San Lorenzo'],
-    correct: 0
+    question: '¿Quién pateó el penal decisivo en la final de Libertadores 2018 vs Boca?',
+    options: ['Pratto', 'Juanfer Quintero', 'Scocco', 'Pity Martínez'],
+    correct: 1
   },
   {
     id: 'river-08',
@@ -161,8 +161,8 @@ export const quizPool = [
     category: 'Duki',
     emoji: '🎵',
     difficulty: 'medio',
-    question: '¿De qué país es Duki?',
-    options: ['Uruguay', 'Argentina', 'Chile', 'España'],
+    question: '¿En qué año salió el álbum "Antes de Ameri" de Duki?',
+    options: ['2017', '2019', '2021', '2023'],
     correct: 1
   },
   {
@@ -170,8 +170,8 @@ export const quizPool = [
     category: 'Duki',
     emoji: '🎵',
     difficulty: 'medio',
-    question: '¿Qué género musical popularizó Duki?',
-    options: ['Cumbia', 'Trap argentino', 'Reggaetón clásico', 'Rock nacional'],
+    question: '¿Con quién lanzó Duki el proyecto "$$$" en sus inicios?',
+    options: ['Bizarrap y Nicki Nicole', 'Khea y C.R.O', 'Paulo Londra y YSY A', 'Trueno y Wos'],
     correct: 1
   },
   {
@@ -197,9 +197,9 @@ export const quizPool = [
     category: 'Duki',
     emoji: '🎵',
     difficulty: 'medio',
-    question: '¿De qué ciudad argentina es Duki?',
-    options: ['Buenos Aires', 'Córdoba', 'Rosario', 'Mendoza'],
-    correct: 0
+    question: '¿En qué álbum de Duki está el tema "Goteo"?',
+    options: ['Super Sangre Joven', 'Antes de Ameri', 'Desde el Fin del Mundo', 'Desde el Oeste'],
+    correct: 1
   },
   {
     id: 'duki-06',
@@ -285,104 +285,104 @@ export const quizPool = [
     correct: 0
   },
 
-  // ── Pokémon Gen 1 (difícil) ───────────────────────────────────
+  // ── Pokémon Gen 1 (medio) ───────────────────────────────────
   {
     id: 'poke-01',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿Qué Pokémon mítico puede aprender cualquier MT y HM en Red/Blue?',
-    options: ['Mew', 'Mewtwo', 'Ditto', 'Arceus'],
-    correct: 0
+    difficulty: 'medio',
+    question: '¿Cuántos Pokémon hay en la Pokédex original de Kanto?',
+    options: ['100', '151', '200', '251'],
+    correct: 1
   },
   {
     id: 'poke-02',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿En qué ciudad está el gimnasio de Sabrina (tipo Psíquico)?',
-    options: ['Ciudad Celeste', 'Ciudad Azafrán', 'Ciudad Carmín', 'Ciudad Azulona'],
-    correct: 1
+    difficulty: 'medio',
+    question: '¿Qué Pokémon legendario está al final de la Cueva Cerulean?',
+    options: ['Articuno', 'Zapdos', 'Mewtwo', 'Mew'],
+    correct: 2
   },
   {
     id: 'poke-03',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿Cómo evoluciona Graveler a Golem en la primera generación?',
-    options: ['Piedra Lunar', 'Intercambio', 'Nivel 40', 'Piedra Agua'],
+    difficulty: 'medio',
+    question: '¿Qué piedra evolutiva necesita Pikachu para evolucionar a Raichu?',
+    options: ['Piedra Fuego', 'Piedra Trueno', 'Piedra Agua', 'Piedra Lunar'],
     correct: 1
   },
   {
     id: 'poke-04',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿Dónde capturás a Articuno en Pokémon Rojo/Azul?',
-    options: ['Islas Espuma', 'Meseta Añil', 'Torre Pokémon', 'Calle Victoria'],
-    correct: 0
+    difficulty: 'medio',
+    question: '¿Cuál es el starter de tipo Fuego en Pokémon Rojo/Azul?',
+    options: ['Bulbasaur', 'Charmander', 'Squirtle', 'Pikachu'],
+    correct: 1
   },
   {
     id: 'poke-05',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿Qué fósil revive a Aerodactyl en el laboratorio de Cinnabar?',
-    options: ['Fósil Domo', 'Ámbar Viejo', 'Hueso Raro', 'Raíz Grande'],
+    difficulty: 'medio',
+    question: '¿En qué ciudad está el gimnasio de Misty (tipo Agua)?',
+    options: ['Ciudad Plateada', 'Ciudad Celeste', 'Ciudad Azafrán', 'Ciudad Carmín'],
     correct: 1
   },
   {
     id: 'poke-06',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿Cuántas medallas necesitás para usar Surf fuera de combate en Gen 1?',
-    options: ['3', '4', '5', '8'],
-    correct: 2
+    difficulty: 'medio',
+    question: '¿Qué organización criminal aparece en la región de Kanto?',
+    options: ['Team Aqua', 'Team Rocket', 'Team Galactic', 'Team Plasma'],
+    correct: 1
   },
   {
     id: 'poke-07',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿Qué bug famoso de Red/Blue duplica el 6.º ítem de tu mochila?',
-    options: ['MissingNo', 'Mew glitch', 'Pikachu surf', 'Zapdos softlock'],
-    correct: 0
+    difficulty: 'medio',
+    question: '¿Cómo se llama tu rival al final de la Liga Pokémon?',
+    options: ['Lance', 'Azul', 'Brock', 'Lt. Surge'],
+    correct: 1
   },
   {
     id: 'poke-08',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: 'En Gen 1, ¿por qué los movimientos tipo Fantasma no afectan a Psíquico?',
-    options: ['Es inmunidad real', 'Es un bug del juego', 'Psíquico es tipo dual', 'Fantasma no hace daño'],
-    correct: 1
+    difficulty: 'medio',
+    question: '¿Dónde capturás a Articuno en Pokémon Rojo/Azul?',
+    options: ['Islas Espuma', 'Meseta Añil', 'Torre Pokémon', 'Calle Victoria'],
+    correct: 0
   },
   {
     id: 'poke-09',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿En qué piso de Silph S.A. te regalan un Lapras en Rojo/Azul?',
-    options: ['Piso 3', 'Piso 5', 'Piso 7', 'Piso 10'],
-    correct: 2
+    difficulty: 'medio',
+    question: '¿Cómo evoluciona Machoke a Machamp en la primera generación?',
+    options: ['Nivel 45', 'Intercambio', 'Piedra Agua', 'Piedra Lucha'],
+    correct: 1
   },
   {
     id: 'poke-10',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿Qué stat de un Pokémon influye en la probabilidad de golpe crítico en Gen 1?',
-    options: ['Ataque', 'Velocidad', 'Defensa', 'Ataque Especial'],
+    difficulty: 'medio',
+    question: '¿En qué ciudad está el gimnasio de Sabrina (tipo Psíquico)?',
+    options: ['Ciudad Celeste', 'Ciudad Azafrán', 'Ciudad Carmín', 'Ciudad Azulona'],
     correct: 1
   },
   {
     id: 'poke-11',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
-    difficulty: 'difícil',
-    question: '¿Cuál es la única forma de obtener a Mew de forma legítima en eventos originales?',
-    options: ['Torre Pokémon', 'Evento Nintendo distribuido', 'Isla Misteriosa', 'Intercambio con NPC'],
+    difficulty: 'medio',
+    question: '¿Qué Pokémon evoluciona con la Piedra Lunar en Gen 1?',
+    options: ['Growlithe', 'Clefairy', 'Magikarp', 'Abra'],
     correct: 1
   }
 ]
