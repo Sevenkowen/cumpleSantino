@@ -503,11 +503,12 @@ export function initQuizState(pool, count = QUIZ_COUNT) {
       .map((id) => pool.find((q) => q.id === id))
       .filter(Boolean)
     if (questions.length === count) {
+      const answers = saved.answers || {}
+      const allDone = questions.every((q) => answers[q.id] != null)
       return {
         questionIds: saved.questionIds,
-        answers: saved.answers || {},
-        gameOver: saved.gameOver || false,
-        completed: saved.completed || false,
+        answers,
+        completed: allDone || saved.completed || false,
         parentNotified: saved.parentNotified || saved.whatsappSent || false,
         questions
       }
@@ -518,7 +519,6 @@ export function initQuizState(pool, count = QUIZ_COUNT) {
   const state = {
     questionIds: questions.map((q) => q.id),
     answers: {},
-    gameOver: false,
     completed: false,
     parentNotified: false
   }

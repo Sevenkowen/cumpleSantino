@@ -23,14 +23,9 @@
         por cada respuesta correcta.
       </p>
       <div class="quiz-warnings">
-        <span class="warn-item">❤️ Solo tenés <strong>una vida</strong></span>
+        <span class="warn-item">❤️ <strong>Una oportunidad por pregunta</strong> — si fallás, seguís con la siguiente</span>
         <span class="warn-item">💥 Si refrescás, el quiz se autodestruye</span>
       </div>
-    </div>
-
-    <!-- Game over por error -->
-    <div v-if="gameOver" class="gameover-banner">
-      <span>💔 Perdiste tu vida — Quiz terminado</span>
     </div>
 
     <!-- Preguntas -->
@@ -55,6 +50,9 @@
 
         <div v-if="answers[q.id]?.correct" class="won-badge">
           ✅ Ganaste ${{ formatPrize(prizePerCorrect) }} en MercadoPago
+        </div>
+        <div v-else-if="answers[q.id] && !answers[q.id].correct" class="lost-badge">
+          ❌ Sin premio en esta — seguí con la siguiente
         </div>
 
         <div class="quiz-options">
@@ -112,7 +110,6 @@ gsap.registerPlugin(ScrollTrigger)
 const quizRef = ref(null)
 const questions = ref([])
 const answers = reactive({})
-const gameOver = ref(false)
 const completed = ref(false)
 const destroyed = ref(false)
 const lostPrize = ref(0)
@@ -120,7 +117,7 @@ const parentNotified = ref(false)
 
 const prizePerCorrect = PRIZE_PER_CORRECT
 
-const quizEnded = computed(() => completed.value || gameOver.value)
+const quizEnded = computed(() => completed.value)
 
 onMounted(() => {
   const state = initQuizState(quizPool, QUIZ_COUNT)
@@ -133,7 +130,6 @@ onMounted(() => {
 
   questions.value = state.questions
   Object.assign(answers, state.answers || {})
-  gameOver.value = state.gameOver || false
   completed.value = state.completed || false
   parentNotified.value = state.parentNotified || false
 
@@ -164,7 +160,6 @@ function persistState(extra = {}) {
   saveQuizState({
     questionIds: questions.value.map((q) => q.id),
     answers: { ...answers },
-    gameOver: gameOver.value,
     completed: completed.value,
     parentNotified: parentNotified.value,
     ...extra
@@ -185,7 +180,7 @@ function notifyParent() {
 function checkCompletion() {
   if (questions.value.length === 0) return
   const allDone = questions.value.every((q) => answers[q.id] != null)
-  if (allDone && !gameOver.value) {
+  if (allDone) {
     completed.value = true
     persistState()
     notifyParent()
@@ -203,19 +198,11 @@ function isLocked(id, index) {
 }
 
 function selectAnswer(id, selected, correctIndex) {
-  if (isAnswered(id) || quizEnded.value) return
+  if (isAnswered(id) || completed.value) return
 
   const isCorrect = selected === correctIndex
   answers[id] = { selected, correct: isCorrect }
   persistState()
-
-  if (!isCorrect) {
-    gameOver.value = true
-    persistState()
-    notifyParent()
-    return
-  }
-
   checkCompletion()
 }
 
@@ -292,17 +279,6 @@ function showResult(id, oi, correctIndex) {
   opacity: 0.65;
 }
 
-.gameover-banner {
-  text-align: center;
-  padding: 12px;
-  margin-bottom: 16px;
-  background: rgba(255, 107, 107, 0.15);
-  border: 1px solid rgba(255, 107, 107, 0.35);
-  border-radius: 12px;
-  font-size: 0.9rem;
-  color: #ffaaaa;
-}
-
 .quiz-list {
   display: flex;
   flex-direction: column;
@@ -344,6 +320,14 @@ function showResult(id, oi, correctIndex) {
   font-size: 0.85rem;
   font-weight: 600;
   color: #a8e6cf;
+  margin-bottom: 10px;
+  animation: pop-in 0.4s ease;
+}
+
+.lost-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffaaaa;
   margin-bottom: 10px;
   animation: pop-in 0.4s ease;
 }
