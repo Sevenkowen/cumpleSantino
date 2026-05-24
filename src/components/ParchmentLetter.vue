@@ -48,7 +48,7 @@ import { ref, computed, onMounted, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useAppStore } from 'src/stores/app'
-import { useScrollTyping } from 'src/composables/useScrollAnimations'
+import { useSequentialPenTyping } from 'src/composables/useScrollAnimations'
 import { typeWithPen } from 'src/composables/usePenWriting'
 import PhotoFrame from './PhotoFrame.vue'
 
@@ -67,11 +67,9 @@ const rollTopRef = ref(null)
 
 const typingSpeed = computed(() => letter.value.typingSpeed || 55)
 
-useScrollTyping(contentRef, {
+const { startSequence } = useSequentialPenTyping(contentRef, {
   baseSpeed: typingSpeed.value,
-  startAt: 'top 92%',
-  autoStartFirst: true,
-  firstParagraphDelay: 3200
+  pauseBetween: 450
 })
 
 onMounted(async () => {
@@ -95,11 +93,14 @@ onMounted(async () => {
     { opacity: 1, duration: 0.8, delay: 0.3 }
   )
 
-  setTimeout(() => {
+  setTimeout(async () => {
     if (salutationRef.value && letter.value.salutation) {
-      typeWithPen(salutationRef.value, letter.value.salutation, {
+      await typeWithPen(salutationRef.value, letter.value.salutation, {
         baseSpeed: typingSpeed.value * 0.9
       })
+      // Pausa breve y luego párrafos uno por uno
+      await new Promise((r) => setTimeout(r, 500))
+      await startSequence()
     }
   }, 800)
 

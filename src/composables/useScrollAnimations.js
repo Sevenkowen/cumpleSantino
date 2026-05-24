@@ -6,66 +6,40 @@ import { typeWithPen } from './usePenWriting'
 gsap.registerPlugin(ScrollTrigger)
 
 /**
- * Escritura con lapicera activada al hacer scroll.
+ * Escribe los párrafos en orden, uno tras otro, con una sola lapicera.
  */
-export function useScrollTyping(containerRef, options = {}) {
+export function useSequentialPenTyping(containerRef, options = {}) {
   const {
     baseSpeed = 55,
-    startAt = 'top 92%',
-    autoStartFirst = true,
-    firstParagraphDelay = 2800
+    pauseBetween = 450
   } = options
 
-  let ctx
-  const typed = new Set()
+  let running = false
 
-  function writeParagraph(element, text) {
-    if (!element || !text || typed.has(element)) return Promise.resolve()
-    typed.add(element)
-    return typeWithPen(element, text, { baseSpeed })
+  async function startSequence() {
+    if (!containerRef.value || running) return
+    running = true
+
+    const paragraphs = [...containerRef.value.querySelectorAll('[data-type-text]')]
+
+    for (const el of paragraphs) {
+      const text = el.getAttribute('data-type-text')
+      if (!text) continue
+
+      el.textContent = ''
+      await typeWithPen(el, text, { baseSpeed })
+
+      if (pauseBetween > 0) {
+        await new Promise((resolve) => setTimeout(resolve, pauseBetween))
+      }
+    }
   }
-
-  function isInView(el) {
-    const rect = el.getBoundingClientRect()
-    return rect.top < window.innerHeight * 0.92
-  }
-
-  onMounted(async () => {
-    await nextTick()
-    if (!containerRef.value) return
-
-    ctx = gsap.context(() => {
-      const paragraphs = [...containerRef.value.querySelectorAll('[data-type-text]')]
-
-      paragraphs.forEach((el, index) => {
-        const fullText = el.getAttribute('data-type-text')
-        if (!fullText) return
-
-        el.textContent = ''
-
-        ScrollTrigger.create({
-          trigger: el,
-          start: startAt,
-          once: true,
-          onEnter: () => writeParagraph(el, fullText)
-        })
-
-        if (autoStartFirst && index === 0) {
-          setTimeout(() => {
-            if (isInView(el)) writeParagraph(el, fullText)
-          }, firstParagraphDelay)
-        }
-      })
-
-      ScrollTrigger.refresh()
-    }, containerRef.value)
-  })
 
   onUnmounted(() => {
-    ctx?.revert()
+    running = false
   })
 
-  return { writeParagraph, typeWithPen }
+  return { startSequence }
 }
 
 export function useScrollAnimations(containerRef) {
