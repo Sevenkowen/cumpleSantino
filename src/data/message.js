@@ -30,7 +30,12 @@ export default {
       'Bueno, no soy un hombre de muchas palabras. ¿Qué más decir? Que te quiero, que te cuides (siempre capuchón) y que sabés que contás conmigo para cualquier consejo, problema o situación que tengas.',
       'Te quiero mucho.'
     ],
-    signatureLast: true
+    signatureLast: true,
+    photo: {
+      src: '/images/santino-cumple-14.jpg',
+      alt: 'Santino — Feliz cumpleaños 14',
+      caption: 'Felices 14, Santino 🎂'
+    }
   },
 
   // ── Historia interactiva (scroll) ─────────────────────────────

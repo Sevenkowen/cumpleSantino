@@ -35,6 +35,8 @@
       <div class="scroll-roll scroll-roll-bottom" />
     </div>
 
+    <PhotoFrame />
+
     <p class="scroll-hint" ref="hintRef">
       ↓ Deslizá para seguir leyendo
     </p>
@@ -48,6 +50,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useAppStore } from 'src/stores/app'
 import { useScrollTyping } from 'src/composables/useScrollAnimations'
 import { typeWithPen } from 'src/composables/usePenWriting'
+import PhotoFrame from './PhotoFrame.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
