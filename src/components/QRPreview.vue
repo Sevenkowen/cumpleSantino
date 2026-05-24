@@ -29,6 +29,16 @@
         <q-btn
           unelevated
           rounded
+          color="white"
+          text-color="dark"
+          icon="fullscreen"
+          label="QR pantalla completa (para escanear)"
+          class="q-mb-sm"
+          to="/qr-pantalla"
+        />
+        <q-btn
+          unelevated
+          rounded
           color="primary"
           text-color="dark"
           icon="download"

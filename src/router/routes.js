@@ -1,5 +1,10 @@
 const routes = [
   {
+    path: '/qr-pantalla',
+    name: 'qr-pantalla',
+    component: () => import('pages/QRScanPage.vue')
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [

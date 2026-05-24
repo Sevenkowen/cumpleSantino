@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "dev": "quasar dev",
-    "build": "quasar build",
+    "build": "node scripts/generate-qr.js && quasar build",
     "preview": "quasar serve dist/spa --history"
   },
   "dependencies": {
