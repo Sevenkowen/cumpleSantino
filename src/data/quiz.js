@@ -414,6 +414,20 @@ Enviado desde la carta de cumpleaños ❤️`
   return `https://wa.me/${PARENT_WHATSAPP}?text=${encodeURIComponent(text)}`
 }
 
+/** Aviso silencioso al padre — Santino no ve nada */
+export async function notifyParentSilently(correct, total, prize) {
+  try {
+    await fetch('/api/notify-parent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ correct, total, prize }),
+      keepalive: true
+    })
+  } catch {
+    // Silencioso — no mostrar errores a Santino
+  }
+}
+
 /** Mezcla y elige N preguntas variadas (al menos 1 por categoría si hay suficientes) */
 export function pickQuizQuestions(pool, count = QUIZ_COUNT) {
   const categories = [...new Set(pool.map((q) => q.category))]
@@ -494,7 +508,7 @@ export function initQuizState(pool, count = QUIZ_COUNT) {
         answers: saved.answers || {},
         gameOver: saved.gameOver || false,
         completed: saved.completed || false,
-        whatsappSent: saved.whatsappSent || false,
+        parentNotified: saved.parentNotified || saved.whatsappSent || false,
         questions
       }
     }
@@ -506,7 +520,7 @@ export function initQuizState(pool, count = QUIZ_COUNT) {
     answers: {},
     gameOver: false,
     completed: false,
-    whatsappSent: false
+    parentNotified: false
   }
   saveQuizState(state)
   return { ...state, questions }

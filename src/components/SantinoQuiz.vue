@@ -26,15 +26,10 @@
         <span class="warn-item">❤️ Solo tenés <strong>una vida</strong></span>
         <span class="warn-item">💥 Si refrescás, el quiz se autodestruye</span>
       </div>
-      <div class="prize-total glass">
-        <img src="/images/mp-icon.svg" alt="" class="mp-icon" v-if="false" />
-        <span class="mp-label">💙 MercadoPago acumulado</span>
-        <span class="mp-amount">${{ formatPrize(totalPrize) }}</span>
-      </div>
     </div>
 
     <!-- Game over por error -->
-    <div v-if="gameOver && !completed" class="gameover-banner">
+    <div v-if="gameOver" class="gameover-banner">
       <span>💔 Perdiste tu vida — Quiz terminado</span>
     </div>
 
@@ -52,14 +47,12 @@
           <span class="quiz-diff" :class="`diff-${q.difficulty}`">{{ q.difficulty }}</span>
         </div>
 
-        <!-- Premio por acierto -->
         <div class="prize-badge">
           💙 +${{ formatPrize(prizePerCorrect) }} MercadoPago
         </div>
 
         <p class="quiz-question">{{ q.question }}</p>
 
-        <!-- Ganó en esta pregunta -->
         <div v-if="answers[q.id]?.correct" class="won-badge">
           ✅ Ganaste ${{ formatPrize(prizePerCorrect) }} en MercadoPago
         </div>
@@ -85,26 +78,21 @@
       </article>
     </div>
 
-    <!-- Pantalla final -->
-    <div v-if="completed || (gameOver && answeredCount > 0)" class="final-screen glass-strong">
-      <span class="final-cake">🎂</span>
-      <h2 class="final-title">¡Feliz Cumpleaños Santino!</h2>
-      <p class="final-gift">Tu regalo de cumpleaños son</p>
-      <p class="final-amount">${{ formatPrize(totalPrize) }}</p>
-      <p class="final-mp">en MercadoPago 💙</p>
-      <p class="final-detail">{{ score.correct }} respuestas correctas de {{ questions.length }}</p>
-
-      <a
-        :href="whatsappUrl"
-        target="_blank"
-        rel="noopener"
-        class="btn-whatsapp"
-        @click="markWhatsappSent"
-      >
-        <q-icon name="send" size="20px" />
-        Avisar a papá para transferir
-      </a>
-      <p class="whatsapp-note">Se abre WhatsApp con el monto a transferir</p>
+    <!-- Total abajo — sin cambiar pantalla -->
+    <div class="quiz-footer glass-strong" :class="{ ended: quizEnded }">
+      <template v-if="quizEnded">
+        <span class="footer-cake">🎂</span>
+        <h2 class="footer-title">¡Feliz Cumpleaños Santino!</h2>
+        <p class="footer-gift">Tu regalo de cumpleaños son</p>
+      </template>
+      <p class="footer-amount">${{ formatPrize(totalPrize) }}</p>
+      <p class="footer-mp">en MercadoPago 💙</p>
+      <p v-if="quizEnded" class="footer-detail">
+        {{ score.correct }} respuestas correctas de {{ questions.length }}
+      </p>
+      <p v-else-if="score.correct > 0" class="footer-detail">
+        {{ score.correct }} acierto{{ score.correct !== 1 ? 's' : '' }} hasta ahora
+      </p>
     </div>
   </section>
 </template>
@@ -121,7 +109,7 @@ import {
   PRIZE_PER_CORRECT,
   formatPrize,
   calculatePrize,
-  buildWhatsAppUrl
+  notifyParentSilently
 } from 'src/data/quiz'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -133,9 +121,11 @@ const gameOver = ref(false)
 const completed = ref(false)
 const destroyed = ref(false)
 const lostPrize = ref(0)
-const whatsappSent = ref(false)
+const parentNotified = ref(false)
 
 const prizePerCorrect = PRIZE_PER_CORRECT
+
+const quizEnded = computed(() => completed.value || gameOver.value)
 
 onMounted(() => {
   const state = initQuizState(quizPool, QUIZ_COUNT)
@@ -150,12 +140,10 @@ onMounted(() => {
   Object.assign(answers, state.answers || {})
   gameOver.value = state.gameOver || false
   completed.value = state.completed || false
-  whatsappSent.value = state.whatsappSent || false
+  parentNotified.value = state.parentNotified || false
 
-  checkCompletion()
-
-  if (completed.value && !whatsappSent.value) {
-    notifyWhatsApp()
+  if (quizEnded.value && !parentNotified.value) {
+    notifyParent()
   }
 
   if (quizRef.value) {
@@ -177,21 +165,26 @@ const score = computed(() => {
 
 const totalPrize = computed(() => calculatePrize(answers))
 
-const answeredCount = computed(() => Object.keys(answers).length)
-
-const whatsappUrl = computed(() =>
-  buildWhatsAppUrl(score.value.correct, questions.value.length, totalPrize.value)
-)
-
 function persistState(extra = {}) {
   saveQuizState({
     questionIds: questions.value.map((q) => q.id),
     answers: { ...answers },
     gameOver: gameOver.value,
     completed: completed.value,
-    whatsappSent: whatsappSent.value,
+    parentNotified: parentNotified.value,
     ...extra
   })
+}
+
+function notifyParent() {
+  if (parentNotified.value) return
+  parentNotified.value = true
+  persistState()
+  notifyParentSilently(
+    score.value.correct,
+    questions.value.length,
+    totalPrize.value
+  )
 }
 
 function checkCompletion() {
@@ -200,26 +193,8 @@ function checkCompletion() {
   if (allDone && !gameOver.value) {
     completed.value = true
     persistState()
-    notifyWhatsApp()
-  } else if (gameOver.value && answeredCount.value > 0) {
-    completed.value = true
-    persistState()
-    notifyWhatsApp()
+    notifyParent()
   }
-}
-
-function notifyWhatsApp() {
-  if (whatsappSent.value) return
-  whatsappSent.value = true
-  persistState()
-  setTimeout(() => {
-    window.open(whatsappUrl.value, '_blank')
-  }, 1500)
-}
-
-function markWhatsappSent() {
-  whatsappSent.value = true
-  persistState()
 }
 
 function isAnswered(id) {
@@ -227,14 +202,13 @@ function isAnswered(id) {
 }
 
 function isLocked(id, index) {
-  if (gameOver.value || completed.value) return !isAnswered(id)
-  // Solo la siguiente pregunta sin responder está activa
+  if (quizEnded.value) return !isAnswered(id)
   const firstUnanswered = questions.value.findIndex((q) => !answers[q.id])
   return index !== firstUnanswered
 }
 
 function selectAnswer(id, selected, correctIndex) {
-  if (isAnswered(id) || gameOver.value || completed.value) return
+  if (isAnswered(id) || quizEnded.value) return
 
   const isCorrect = selected === correctIndex
   answers[id] = { selected, correct: isCorrect }
@@ -242,9 +216,8 @@ function selectAnswer(id, selected, correctIndex) {
 
   if (!isCorrect) {
     gameOver.value = true
-    completed.value = true
     persistState()
-    notifyWhatsApp()
+    notifyParent()
     return
   }
 
@@ -279,7 +252,6 @@ function showResult(id, oi, correctIndex) {
   padding: 0 4px;
 }
 
-/* ── Intro ── */
 .quiz-intro {
   text-align: center;
   padding: 24px 18px;
@@ -318,7 +290,6 @@ function showResult(id, oi, correctIndex) {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 16px;
 }
 
 .warn-item {
@@ -326,29 +297,6 @@ function showResult(id, oi, correctIndex) {
   opacity: 0.65;
 }
 
-.prize-total {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 14px;
-  border-radius: 14px;
-  background: rgba(0, 188, 255, 0.08);
-  border: 1px solid rgba(0, 188, 255, 0.25);
-}
-
-.mp-label {
-  font-size: 0.75rem;
-  opacity: 0.7;
-}
-
-.mp-amount {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #00bcff;
-}
-
-/* ── Game over ── */
 .gameover-banner {
   text-align: center;
   padding: 12px;
@@ -360,7 +308,6 @@ function showResult(id, oi, correctIndex) {
   color: #ffaaaa;
 }
 
-/* ── Cards ── */
 .quiz-list {
   display: flex;
   flex-direction: column;
@@ -528,78 +475,62 @@ function showResult(id, oi, correctIndex) {
   opacity: 0.45;
 }
 
-/* ── Final ── */
-.final-screen {
+/* ── Footer total abajo ── */
+.quiz-footer {
   text-align: center;
-  padding: 32px 20px;
-  margin-top: 28px;
-  border-radius: 24px;
+  padding: 20px 18px;
+  margin-top: 24px;
+  border-radius: 20px;
+  background: rgba(0, 188, 255, 0.06);
+  border: 1px solid rgba(0, 188, 255, 0.2);
 }
 
-.final-cake {
-  font-size: 3rem;
+.quiz-footer.ended {
+  padding: 28px 20px;
+  background: rgba(0, 188, 255, 0.1);
+  border-color: rgba(0, 188, 255, 0.3);
+}
+
+.footer-cake {
+  font-size: 2.2rem;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
-.final-title {
-  font-size: 1.5rem;
+.footer-title {
+  font-size: 1.35rem;
   font-weight: 700;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   background: linear-gradient(135deg, #ff6b2b, #e8a0bf, #00bcff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.final-gift {
-  font-size: 1rem;
+.footer-gift {
+  font-size: 0.95rem;
   opacity: 0.8;
   margin: 0 0 4px;
 }
 
-.final-amount {
-  font-size: 2.8rem;
+.footer-amount {
+  font-size: 2.4rem;
   font-weight: 900;
   color: #00bcff;
   margin: 0;
   line-height: 1.1;
 }
 
-.final-mp {
-  font-size: 1.1rem;
+.footer-mp {
+  font-size: 1rem;
   color: #00bcff;
-  margin: 4px 0 12px;
+  margin: 4px 0 0;
   opacity: 0.85;
 }
 
-.final-detail {
-  font-size: 0.85rem;
-  opacity: 0.55;
-  margin: 0 0 20px;
-}
-
-.btn-whatsapp {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: 50px;
-  background: #25d366;
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.2s;
-}
-
-.btn-whatsapp:active {
-  transform: scale(0.96);
-}
-
-.whatsapp-note {
-  font-size: 0.72rem;
-  opacity: 0.45;
+.footer-detail {
+  font-size: 0.8rem;
+  opacity: 0.5;
   margin: 10px 0 0;
 }
 
