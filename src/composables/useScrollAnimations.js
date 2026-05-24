@@ -4,6 +4,69 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+/**
+ * Efecto de escritura activado al hacer scroll.
+ * Cada párrafo se "escribe" cuando entra en pantalla.
+ */
+export function useScrollTyping(containerRef, options = {}) {
+  const { speed = 18, startAt = 'top 82%' } = options
+  let ctx
+  const timers = []
+
+  function typeParagraph(element, text) {
+    return new Promise((resolve) => {
+      element.textContent = ''
+      element.classList.add('is-typing')
+      let i = 0
+
+      const tick = () => {
+        if (i < text.length) {
+          element.textContent += text[i]
+          i++
+          const delay = text[i - 1] === '.' || text[i - 1] === '?' ? speed * 6 : speed
+          const t = setTimeout(tick, delay)
+          timers.push(t)
+        } else {
+          element.classList.remove('is-typing')
+          resolve()
+        }
+      }
+
+      tick()
+    })
+  }
+
+  onMounted(() => {
+    if (!containerRef.value) return
+
+    ctx = gsap.context(() => {
+      const paragraphs = containerRef.value.querySelectorAll('[data-type-text]')
+
+      paragraphs.forEach((el) => {
+        const fullText = el.getAttribute('data-type-text')
+        if (!fullText) return
+
+        el.textContent = ''
+        el.style.opacity = '1'
+
+        ScrollTrigger.create({
+          trigger: el,
+          start: startAt,
+          once: true,
+          onEnter: () => {
+            typeParagraph(el, fullText)
+          }
+        })
+      })
+    }, containerRef.value)
+  })
+
+  onUnmounted(() => {
+    timers.forEach(clearTimeout)
+    ctx?.revert()
+  })
+}
+
 export function useScrollAnimations(containerRef) {
   let ctx
 

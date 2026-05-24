@@ -18,6 +18,20 @@ export default {
   recipientName: 'Santino',
   subtitle: 'Un niño alegre, soñador y lleno de pasión',
 
+  // ── Carta en pergamino (escritura al hacer scroll) ────────────
+  parchmentLetter: {
+    date: '20 de Mayo, 2026',
+    salutation: 'Querido Santino:',
+    paragraphs: [
+      'Primero que nada, ¡feliz cumpleaños! Y gracias a Dios por regalarte un año más de vida. Te deseo de corazón que seas muy feliz, que cumplas tus sueños y que este año por fin te puedas comer a Eva.',
+      'Como sabrás, no soy una persona muy sentimental ni de andar escribiendo este tipo de cosas, pero, a pesar de nuestras altas y bajas, de las discusiones y de los momentos en los que no nos entendimos, yo igual te quiero. Por más que a veces me veas demasiado ortiva o pesado, nunca cambió el cariño que te tengo y nunca va a cambiar.',
+      'Y si muchas veces me tocó marcar límites, corregirte o decirte cosas que quizás no querías escuchar, no lo hice para molestarte ni para hacerte sentir mal, sino porque creo que una de las formas de querer a alguien es enseñarle lo que uno considera correcto. Y a veces eso genera distancia o enojos.',
+      'Bueno, no soy un hombre de muchas palabras. ¿Qué más decir? Que te quiero, que te cuides (siempre capuchón) y que sabés que contás conmigo para cualquier consejo, problema o situación que tengas.',
+      'Te quiero mucho.'
+    ],
+    signatureLast: true
+  },
+
   // ── Historia interactiva (scroll) ─────────────────────────────
   story: [
     {
@@ -71,14 +85,12 @@ export default {
     {
       id: 'family',
       emoji: '💌',
-      title: 'Mensaje de tu Familia',
-      subtitle: 'Con todo nuestro amor',
+      title: 'Un mensaje especial',
+      subtitle: 'Seguí deslizando...',
       paragraphs: [
-        'Santino, hoy celebramos a vos: tu risa, tus sueños, tu energía y ese corazón enorme que tenés.',
-        'Gracias por llenar nuestras vidas de alegría. Que este nuevo año te traiga todo lo que soñás.',
-        'Naruto, la música, River... y sobre todo, la familia. Siempre vamos a estar acá, alentándote en cada paso.'
+        'Después de leer la carta, descubrí todo lo que preparamos pensando en vos.',
+        'Naruto, la música, River... y sobre todo, la familia. Siempre vamos a estar acá.'
       ],
-      signature: 'Con todo nuestro amor, tu familia ❤️',
       theme: 'family'
     }
   ],

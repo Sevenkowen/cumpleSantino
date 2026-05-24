@@ -11,9 +11,11 @@
           <div class="letter-icon">🎂</div>
           <h1 class="letter-title text-gradient glow-text">{{ data.title }}</h1>
           <h2 class="letter-recipient">{{ data.recipientName }}</h2>
-          <p class="letter-subtitle">{{ data.subtitle }}</p>
           <div class="letter-divider" />
         </header>
+
+        <!-- Carta en pergamino -->
+        <ParchmentLetter />
 
         <!-- Story chapters -->
         <template v-for="chapter in storyChapters" :key="chapter.id">
@@ -54,6 +56,7 @@ import gsap from 'gsap'
 import { useAppStore } from 'src/stores/app'
 import { useScrollAnimations } from 'src/composables/useScrollAnimations'
 import ChakraBurst from './ChakraBurst.vue'
+import ParchmentLetter from './ParchmentLetter.vue'
 import StorySection from './StorySection.vue'
 import ArtistCards from './ArtistCards.vue'
 import RiverSection from './RiverSection.vue'
