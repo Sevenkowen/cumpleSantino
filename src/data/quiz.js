@@ -291,44 +291,44 @@ export const quizPool = [
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Cuántos Pokémon originales hay en la primera generación?',
-    options: ['100', '128', '151', '200'],
-    correct: 2
+    question: '¿Qué Pokémon mítico puede aprender cualquier MT y HM en Red/Blue?',
+    options: ['Mew', 'Mewtwo', 'Ditto', 'Arceus'],
+    correct: 0
   },
   {
     id: 'poke-02',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Cuál es el número en la Pokédex de Mewtwo?',
-    options: ['148', '149', '150', '151'],
-    correct: 2
+    question: '¿En qué ciudad está el gimnasio de Sabrina (tipo Psíquico)?',
+    options: ['Ciudad Celeste', 'Ciudad Azafrán', 'Ciudad Carmín', 'Ciudad Azulona'],
+    correct: 1
   },
   {
     id: 'poke-03',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Qué piedra evoluciona a Eevee en Vaporeon?',
-    options: ['Piedra Fuego', 'Piedra Trueno', 'Piedra Agua', 'Piedra Solar'],
-    correct: 2
+    question: '¿Cómo evoluciona Graveler a Golem en la primera generación?',
+    options: ['Piedra Lunar', 'Intercambio', 'Nivel 40', 'Piedra Agua'],
+    correct: 1
   },
   {
     id: 'poke-04',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Cuál es la evolución final de Charmander?',
-    options: ['Charmeleon', 'Charizard', 'Dragonite', 'Arcanine'],
-    correct: 1
+    question: '¿Dónde capturás a Articuno en Pokémon Rojo/Azul?',
+    options: ['Islas Espuma', 'Meseta Añil', 'Torre Pokémon', 'Calle Victoria'],
+    correct: 0
   },
   {
     id: 'poke-05',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Qué tipo secundario tiene Charizard en Gen 1?',
-    options: ['Dragón', 'Volador', 'Fuego puro', 'Tierra'],
+    question: '¿Qué fósil revive a Aerodactyl en el laboratorio de Cinnabar?',
+    options: ['Fósil Domo', 'Ámbar Viejo', 'Hueso Raro', 'Raíz Grande'],
     correct: 1
   },
   {
@@ -336,17 +336,17 @@ export const quizPool = [
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Cómo se llama el Pokémon legendario de tipo eléctrico de Kanto?',
-    options: ['Zapdos', 'Raikou', 'Electabuzz', 'Jolteon'],
-    correct: 0
+    question: '¿Cuántas medallas necesitás para usar Surf fuera de combate en Gen 1?',
+    options: ['3', '4', '5', '8'],
+    correct: 2
   },
   {
     id: 'poke-07',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Qué Pokémon es conocido como el glitch famoso en Red/Blue?',
-    options: ['MissingNo', 'Mewthree', 'Pikablu', 'Ghost'],
+    question: '¿Qué bug famoso de Red/Blue duplica el 6.º ítem de tu mochila?',
+    options: ['MissingNo', 'Mew glitch', 'Pikachu surf', 'Zapdos softlock'],
     correct: 0
   },
   {
@@ -354,8 +354,8 @@ export const quizPool = [
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Cuál es el starter tipo Agua de Kanto?',
-    options: ['Bulbasaur', 'Squirtle', 'Psyduck', 'Poliwag'],
+    question: 'En Gen 1, ¿por qué los movimientos tipo Fantasma no afectan a Psíquico?',
+    options: ['Es inmunidad real', 'Es un bug del juego', 'Psíquico es tipo dual', 'Fantasma no hace daño'],
     correct: 1
   },
   {
@@ -363,17 +363,17 @@ export const quizPool = [
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Qué movimiento HM enseña a un Pokémon volar en Gen 1?',
-    options: ['Flash', 'Fly', 'Surf', 'Strength'],
-    correct: 1
+    question: '¿En qué piso de Silph S.A. te regalan un Lapras en Rojo/Azul?',
+    options: ['Piso 3', 'Piso 5', 'Piso 7', 'Piso 10'],
+    correct: 2
   },
   {
     id: 'poke-10',
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Cuál es la evolución de Pikachu en Gen 1?',
-    options: ['Pichu', 'Raichu', 'Electrode', 'Jolteon'],
+    question: '¿Qué stat de un Pokémon influye en la probabilidad de golpe crítico en Gen 1?',
+    options: ['Ataque', 'Velocidad', 'Defensa', 'Ataque Especial'],
     correct: 1
   },
   {
@@ -381,11 +381,38 @@ export const quizPool = [
     category: 'Pokémon Gen 1',
     emoji: '⚡',
     difficulty: 'difícil',
-    question: '¿Qué Pokémon es el #001 en la Pokédex nacional?',
-    options: ['Pikachu', 'Bulbasaur', 'Mew', 'Eevee'],
+    question: '¿Cuál es la única forma de obtener a Mew de forma legítima en eventos originales?',
+    options: ['Torre Pokémon', 'Evento Nintendo distribuido', 'Isla Misteriosa', 'Intercambio con NPC'],
     correct: 1
   }
 ]
+
+export const PRIZE_PER_CORRECT = 10000
+export const PARENT_WHATSAPP = '5491163679158'
+
+export function formatPrize(amount) {
+  return amount.toLocaleString('es-AR')
+}
+
+export function calculatePrize(answers) {
+  if (!answers) return 0
+  return Object.values(answers).filter((a) => a?.correct).length * PRIZE_PER_CORRECT
+}
+
+export function wasPageRefreshed() {
+  const nav = performance.getEntriesByType('navigation')[0]
+  return nav?.type === 'reload'
+}
+
+export function buildWhatsAppUrl(correct, total, prize) {
+  const text = `🎂 *Quiz cumple Santino*
+
+Respuestas correctas: ${correct}/${total}
+*Total a transferir MercadoPago: $${formatPrize(prize)}*
+
+Enviado desde la carta de cumpleaños ❤️`
+  return `https://wa.me/${PARENT_WHATSAPP}?text=${encodeURIComponent(text)}`
+}
 
 /** Mezcla y elige N preguntas variadas (al menos 1 por categoría si hay suficientes) */
 export function pickQuizQuestions(pool, count = QUIZ_COUNT) {
@@ -435,19 +462,51 @@ export function saveQuizState(state) {
 
 export function initQuizState(pool, count = QUIZ_COUNT) {
   const saved = loadQuizState()
+
+  // Refresh = autodestrucción del quiz
+  if (wasPageRefreshed() && saved?.questionIds?.length && !saved.destroyed) {
+    const lostPrize = calculatePrize(saved.answers)
+    const destroyedState = {
+      destroyed: true,
+      lostPrize,
+      destroyedAt: Date.now()
+    }
+    saveQuizState(destroyedState)
+    return { destroyed: true, lostPrize, questions: [], answers: {} }
+  }
+
+  if (saved?.destroyed) {
+    return {
+      destroyed: true,
+      lostPrize: saved.lostPrize || 0,
+      questions: [],
+      answers: {}
+    }
+  }
+
   if (saved?.questionIds?.length) {
     const questions = saved.questionIds
       .map((id) => pool.find((q) => q.id === id))
       .filter(Boolean)
     if (questions.length === count) {
-      return { questionIds: saved.questionIds, answers: saved.answers || {}, questions }
+      return {
+        questionIds: saved.questionIds,
+        answers: saved.answers || {},
+        gameOver: saved.gameOver || false,
+        completed: saved.completed || false,
+        whatsappSent: saved.whatsappSent || false,
+        questions
+      }
     }
   }
 
   const questions = pickQuizQuestions(pool, count)
   const state = {
     questionIds: questions.map((q) => q.id),
-    answers: {}
+    answers: {},
+    gameOver: false,
+    completed: false,
+    whatsappSent: false
   }
   saveQuizState(state)
   return { ...state, questions }

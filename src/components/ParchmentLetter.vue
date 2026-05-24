@@ -37,6 +37,8 @@
 
     <PhotoFrame />
 
+    <QuizContinueArrow />
+
     <SantinoQuiz />
 
     <p class="scroll-hint" ref="hintRef">
@@ -53,6 +55,7 @@ import { useAppStore } from 'src/stores/app'
 import { useSequentialPenTyping } from 'src/composables/useScrollAnimations'
 import { typeWithPen } from 'src/composables/usePenWriting'
 import PhotoFrame from './PhotoFrame.vue'
+import QuizContinueArrow from './QuizContinueArrow.vue'
 import SantinoQuiz from './SantinoQuiz.vue'
 
 gsap.registerPlugin(ScrollTrigger)
