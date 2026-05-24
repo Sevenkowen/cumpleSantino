@@ -62,7 +62,7 @@ export function useScrollAnimations(containerRef) {
             scrollTrigger: {
               trigger: item,
               start: 'top 85%',
-              toggleActions: 'play none none reverse'
+              once: true
             }
           }
         )

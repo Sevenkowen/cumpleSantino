@@ -78,20 +78,15 @@
       </article>
     </div>
 
-    <!-- Total abajo — sin cambiar pantalla -->
-    <div class="quiz-footer glass-strong" :class="{ ended: quizEnded }">
-      <template v-if="quizEnded">
-        <span class="footer-cake">🎂</span>
-        <h2 class="footer-title">¡Feliz Cumpleaños Santino!</h2>
-        <p class="footer-gift">Tu regalo de cumpleaños son</p>
-      </template>
+    <!-- Cartel final — solo al terminar el quiz -->
+    <div v-if="quizEnded" class="quiz-footer glass-strong">
+      <span class="footer-cake">🎂</span>
+      <h2 class="footer-title">¡Feliz Cumpleaños Santino!</h2>
+      <p class="footer-gift">Tu regalo de cumpleaños son</p>
       <p class="footer-amount">${{ formatPrize(totalPrize) }}</p>
       <p class="footer-mp">en MercadoPago 💙</p>
-      <p v-if="quizEnded" class="footer-detail">
+      <p class="footer-detail">
         {{ score.correct }} respuestas correctas de {{ questions.length }}
-      </p>
-      <p v-else-if="score.correct > 0" class="footer-detail">
-        {{ score.correct }} acierto{{ score.correct !== 1 ? 's' : '' }} hasta ahora
       </p>
     </div>
   </section>
@@ -478,17 +473,12 @@ function showResult(id, oi, correctIndex) {
 /* ── Footer total abajo ── */
 .quiz-footer {
   text-align: center;
-  padding: 20px 18px;
-  margin-top: 24px;
-  border-radius: 20px;
-  background: rgba(0, 188, 255, 0.06);
-  border: 1px solid rgba(0, 188, 255, 0.2);
-}
-
-.quiz-footer.ended {
   padding: 28px 20px;
+  margin-top: 24px;
+  margin-bottom: 40px;
+  border-radius: 20px;
   background: rgba(0, 188, 255, 0.1);
-  border-color: rgba(0, 188, 255, 0.3);
+  border: 1px solid rgba(0, 188, 255, 0.3);
 }
 
 .footer-cake {

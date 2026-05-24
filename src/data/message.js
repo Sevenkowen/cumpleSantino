@@ -21,7 +21,7 @@ export default {
   // ── Carta en pergamino (escritura al hacer scroll) ────────────
   parchmentLetter: {
     date: '26 de Mayo, 2026',
-    typingSpeed: 58,
+    typingSpeed: 36,
     salutation: 'Querido Santino:',
     paragraphs: [
       'Primero que nada, ¡feliz cumpleaños! Y gracias a Dios por regalarte un año más de vida. Te deseo de corazón que seas muy feliz, que cumplas tus sueños y que este año por fin te puedas comer a Eva.',

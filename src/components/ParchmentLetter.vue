@@ -40,10 +40,6 @@
     <QuizContinueArrow />
 
     <SantinoQuiz />
-
-    <p class="scroll-hint" ref="hintRef">
-      ↓ Deslizá para seguir leyendo
-    </p>
   </section>
 </template>
 
@@ -68,14 +64,13 @@ const scrollRef = ref(null)
 const bodyRef = ref(null)
 const contentRef = ref(null)
 const salutationRef = ref(null)
-const hintRef = ref(null)
 const rollTopRef = ref(null)
 
 const typingSpeed = computed(() => letter.value.typingSpeed || 55)
 
 const { startSequence } = useSequentialPenTyping(contentRef, {
   baseSpeed: typingSpeed.value,
-  pauseBetween: 450
+  pauseBetween: 280
 })
 
 onMounted(async () => {
@@ -108,19 +103,7 @@ onMounted(async () => {
       await new Promise((r) => setTimeout(r, 500))
       await startSequence()
     }
-  }, 800)
-
-  if (hintRef.value) {
-    gsap.to(hintRef.value, {
-      opacity: 0,
-      duration: 0.5,
-      scrollTrigger: {
-        trigger: sectionRef.value,
-        start: 'top 50%',
-        once: true
-      }
-    })
-  }
+  }, 500)
 
   ScrollTrigger.refresh()
 })
@@ -359,16 +342,4 @@ onMounted(async () => {
   100% { fill: #2a3a5c; }
 }
 
-.scroll-hint {
-  text-align: center;
-  font-size: 0.78rem;
-  color: rgba(240, 230, 239, 0.5);
-  margin: 14px 0 0;
-  animation: hint-pulse 2s ease-in-out infinite;
-}
-
-@keyframes hint-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0.85; }
-}
 </style>

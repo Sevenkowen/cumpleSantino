@@ -1,12 +1,9 @@
 <template>
   <div class="birthday-letter" ref="letterRef">
-    <!-- Chakra burst on open -->
     <ChakraBurst v-if="showChakra" />
 
-    <!-- Letter content -->
     <div class="letter-content" ref="contentRef" :class="{ visible: contentVisible }">
       <div class="letter-scroll safe-top safe-bottom">
-        <!-- Header -->
         <header class="letter-header reveal-item" ref="headerRef">
           <div class="letter-icon">🎂</div>
           <h1 class="letter-title text-gradient glow-text">{{ data.title }}</h1>
@@ -14,37 +11,7 @@
           <div class="letter-divider" />
         </header>
 
-        <!-- Carta en pergamino -->
         <ParchmentLetter />
-
-        <!-- Story chapters -->
-        <template v-for="chapter in storyChapters" :key="chapter.id">
-          <StorySection :chapter="chapter" />
-
-          <!-- Naruto quotes after ninja chapter -->
-          <section v-if="chapter.id === 'ninja'" class="naruto-quotes">
-            <div
-              v-for="(q, i) in narutoQuotes"
-              :key="i"
-              class="quote-card glass reveal-item quote-naruto-card"
-            >
-              <p class="quote-text">"{{ q.text }}"</p>
-              <p class="quote-author">{{ q.author }}</p>
-            </div>
-          </section>
-
-          <!-- Artists after music chapter -->
-          <ArtistCards v-if="chapter.id === 'music'" />
-
-          <!-- River section after river chapter -->
-          <RiverSection v-if="chapter.id === 'river'" />
-        </template>
-
-        <!-- Photo carousel -->
-        <PhotoCarousel v-if="data.photos?.length" />
-
-        <!-- Final stats screen -->
-        <FinalStats @replay="handleReplay" />
       </div>
     </div>
   </div>
@@ -57,16 +24,9 @@ import { useAppStore } from 'src/stores/app'
 import { useScrollAnimations } from 'src/composables/useScrollAnimations'
 import ChakraBurst from './ChakraBurst.vue'
 import ParchmentLetter from './ParchmentLetter.vue'
-import StorySection from './StorySection.vue'
-import ArtistCards from './ArtistCards.vue'
-import RiverSection from './RiverSection.vue'
-import PhotoCarousel from './PhotoCarousel.vue'
-import FinalStats from './FinalStats.vue'
 
 const store = useAppStore()
 const data = computed(() => store.data)
-const storyChapters = computed(() => store.data.story || [])
-const narutoQuotes = computed(() => store.data.narutoQuotes || [])
 
 const letterRef = ref(null)
 const contentRef = ref(null)
@@ -76,11 +36,6 @@ const showChakra = ref(true)
 const contentVisible = ref(true)
 
 useScrollAnimations(contentRef)
-
-function handleReplay() {
-  store.resetExperience()
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
 
 onMounted(async () => {
   await nextTick()
@@ -154,44 +109,10 @@ onMounted(async () => {
   opacity: 0.9;
 }
 
-.letter-subtitle {
-  font-size: 0.95rem;
-  opacity: 0.6;
-  margin: 0;
-  line-height: 1.5;
-}
-
 .letter-divider {
   width: 60px;
   height: 2px;
   background: linear-gradient(90deg, transparent, #ff6b2b, #4a90d9, transparent);
   margin: 24px auto 0;
-}
-
-.naruto-quotes {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 32px;
-}
-
-.quote-naruto-card {
-  padding: 16px 20px;
-  text-align: center;
-  border-left: 3px solid #ff6b2b;
-}
-
-.quote-text {
-  font-size: 0.95rem;
-  font-style: italic;
-  line-height: 1.6;
-  margin: 0 0 6px;
-  opacity: 0.9;
-}
-
-.quote-author {
-  font-size: 0.75rem;
-  opacity: 0.5;
-  margin: 0;
 }
 </style>

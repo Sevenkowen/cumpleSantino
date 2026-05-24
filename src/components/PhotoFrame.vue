@@ -1,5 +1,5 @@
 <template>
-  <div v-if="photo?.src" class="photo-frame-section reveal-item" ref="frameRef">
+  <div v-if="photo?.src" class="photo-frame-section" ref="frameRef">
     <div class="frame-outer">
       <div class="frame-mat">
         <div class="frame-inner">
@@ -12,7 +12,6 @@
           <div class="frame-gloss" aria-hidden="true" />
         </div>
       </div>
-      <!-- Esquinas decorativas estilo polaroid/marco -->
       <span class="frame-corner corner-tl" aria-hidden="true" />
       <span class="frame-corner corner-tr" aria-hidden="true" />
       <span class="frame-corner corner-bl" aria-hidden="true" />
@@ -38,18 +37,21 @@ const frameRef = ref(null)
 onMounted(() => {
   if (!frameRef.value) return
 
-  gsap.from(frameRef.value, {
-    opacity: 0,
-    y: 50,
-    scale: 0.92,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: frameRef.value,
-      start: 'top 88%',
-      once: true
+  gsap.fromTo(frameRef.value,
+    { opacity: 0, y: 50, scale: 0.92 },
+    {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: frameRef.value,
+        start: 'top 88%',
+        once: true
+      }
     }
-  })
+  )
 })
 </script>
 
