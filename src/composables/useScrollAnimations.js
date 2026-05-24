@@ -1,44 +1,28 @@
 import { onMounted, onUnmounted, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { typeWithPen } from './usePenWriting'
 
 gsap.registerPlugin(ScrollTrigger)
 
 /**
- * Efecto de escritura activado al hacer scroll.
- * Si el párrafo ya está visible al cargar, empieza a escribirse solo.
+ * Escritura con lapicera activada al hacer scroll.
  */
 export function useScrollTyping(containerRef, options = {}) {
-  const { speed = 18, startAt = 'top 90%', autoStartFirst = true } = options
+  const {
+    baseSpeed = 55,
+    startAt = 'top 92%',
+    autoStartFirst = true,
+    firstParagraphDelay = 2800
+  } = options
+
   let ctx
-  const timers = []
   const typed = new Set()
 
-  function typeParagraph(element, text) {
+  function writeParagraph(element, text) {
     if (!element || !text || typed.has(element)) return Promise.resolve()
     typed.add(element)
-
-    return new Promise((resolve) => {
-      element.textContent = ''
-      element.classList.add('is-typing')
-      let i = 0
-
-      const tick = () => {
-        if (i < text.length) {
-          element.textContent += text[i]
-          i++
-          const ch = text[i - 1]
-          const delay = ch === '.' || ch === '?' || ch === '!' ? speed * 5 : speed
-          const t = setTimeout(tick, delay)
-          timers.push(t)
-        } else {
-          element.classList.remove('is-typing')
-          resolve()
-        }
-      }
-
-      tick()
-    })
+    return typeWithPen(element, text, { baseSpeed })
   }
 
   function isInView(el) {
@@ -63,14 +47,13 @@ export function useScrollTyping(containerRef, options = {}) {
           trigger: el,
           start: startAt,
           once: true,
-          onEnter: () => typeParagraph(el, fullText)
+          onEnter: () => writeParagraph(el, fullText)
         })
 
-        // Primer párrafo visible: escribir al cargar
         if (autoStartFirst && index === 0) {
           setTimeout(() => {
-            if (isInView(el)) typeParagraph(el, fullText)
-          }, 1200)
+            if (isInView(el)) writeParagraph(el, fullText)
+          }, firstParagraphDelay)
         }
       })
 
@@ -79,11 +62,10 @@ export function useScrollTyping(containerRef, options = {}) {
   })
 
   onUnmounted(() => {
-    timers.forEach(clearTimeout)
     ctx?.revert()
   })
 
-  return { typeParagraph }
+  return { writeParagraph, typeWithPen }
 }
 
 export function useScrollAnimations(containerRef) {
