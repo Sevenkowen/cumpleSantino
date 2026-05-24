@@ -73,7 +73,7 @@ const contentRef = ref(null)
 const headerRef = ref(null)
 
 const showChakra = ref(true)
-const contentVisible = ref(false)
+const contentVisible = ref(true)
 
 useScrollAnimations(contentRef)
 
@@ -91,10 +91,10 @@ onMounted(async () => {
 
   tl.from(contentRef.value, {
     opacity: 0,
-    scale: 0.9,
-    duration: 1,
+    y: 30,
+    duration: 0.9,
     ease: 'power3.out',
-    delay: 0.3
+    delay: 0.2
   })
   .from(headerRef.value?.children || [], {
     opacity: 0,
@@ -117,8 +117,7 @@ onMounted(async () => {
 }
 
 .letter-content {
-  opacity: 0;
-  transition: opacity 0.3s;
+  opacity: 1;
 }
 
 .letter-content.visible {

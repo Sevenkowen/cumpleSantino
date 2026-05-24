@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -6,14 +6,18 @@ gsap.registerPlugin(ScrollTrigger)
 
 /**
  * Efecto de escritura activado al hacer scroll.
- * Cada párrafo se "escribe" cuando entra en pantalla.
+ * Si el párrafo ya está visible al cargar, empieza a escribirse solo.
  */
 export function useScrollTyping(containerRef, options = {}) {
-  const { speed = 18, startAt = 'top 82%' } = options
+  const { speed = 18, startAt = 'top 90%', autoStartFirst = true } = options
   let ctx
   const timers = []
+  const typed = new Set()
 
   function typeParagraph(element, text) {
+    if (!element || !text || typed.has(element)) return Promise.resolve()
+    typed.add(element)
+
     return new Promise((resolve) => {
       element.textContent = ''
       element.classList.add('is-typing')
@@ -23,7 +27,8 @@ export function useScrollTyping(containerRef, options = {}) {
         if (i < text.length) {
           element.textContent += text[i]
           i++
-          const delay = text[i - 1] === '.' || text[i - 1] === '?' ? speed * 6 : speed
+          const ch = text[i - 1]
+          const delay = ch === '.' || ch === '?' || ch === '!' ? speed * 5 : speed
           const t = setTimeout(tick, delay)
           timers.push(t)
         } else {
@@ -36,28 +41,40 @@ export function useScrollTyping(containerRef, options = {}) {
     })
   }
 
-  onMounted(() => {
+  function isInView(el) {
+    const rect = el.getBoundingClientRect()
+    return rect.top < window.innerHeight * 0.92
+  }
+
+  onMounted(async () => {
+    await nextTick()
     if (!containerRef.value) return
 
     ctx = gsap.context(() => {
-      const paragraphs = containerRef.value.querySelectorAll('[data-type-text]')
+      const paragraphs = [...containerRef.value.querySelectorAll('[data-type-text]')]
 
-      paragraphs.forEach((el) => {
+      paragraphs.forEach((el, index) => {
         const fullText = el.getAttribute('data-type-text')
         if (!fullText) return
 
         el.textContent = ''
-        el.style.opacity = '1'
 
         ScrollTrigger.create({
           trigger: el,
           start: startAt,
           once: true,
-          onEnter: () => {
-            typeParagraph(el, fullText)
-          }
+          onEnter: () => typeParagraph(el, fullText)
         })
+
+        // Primer párrafo visible: escribir al cargar
+        if (autoStartFirst && index === 0) {
+          setTimeout(() => {
+            if (isInView(el)) typeParagraph(el, fullText)
+          }, 1200)
+        }
       })
+
+      ScrollTrigger.refresh()
     }, containerRef.value)
   })
 
@@ -65,6 +82,8 @@ export function useScrollTyping(containerRef, options = {}) {
     timers.forEach(clearTimeout)
     ctx?.revert()
   })
+
+  return { typeParagraph }
 }
 
 export function useScrollAnimations(containerRef) {
